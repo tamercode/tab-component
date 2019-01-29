@@ -1,7 +1,7 @@
 <div class="tabs-component">
 
     <div class=tabs-container>
-      <div [ngClass]="i > 0 ? 'tab' : 'first-tab'" id="{{'tab-' + i}}" *ngFor="let tab of tabs; let i = index">{{tab}}</div>
+      <div [ngClass]="i === tabs.length -1 ? 'first-tab' : 'tab'" id="{{'tab-' + i}}" *ngFor="let tab of tabs; let i = index">{{tab}}</div>
     </div>
   <div class="tabs-buttons">
     <div class="tabs-button" (click)="scroll('tab-8')">Tab List</div>
