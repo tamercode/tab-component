@@ -1,0 +1,20 @@
+.tabs-component {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.tabs-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;   
+}
+
+.tab {
+    border: 1px solid black;
+    flex: 0 0 200px;
+    height: 50px;
+}
+
+.tab :target {
+    transition: all 200ms;
+}

@@ -9,7 +9,13 @@ export class TabsComponent implements OnInit {
 
   constructor() { }
 
+  tabs = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'hhhhh', 'iiiii', 'llll'];
+
   ngOnInit() {
+  }
+
+  scroll(id: string) {
+    document.getElementById(id).scrollIntoView();
   }
 
 }

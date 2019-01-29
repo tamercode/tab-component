@@ -1,3 +1,9 @@
-<p>
-  tabs works!
-</p>
+<div class="tabs-component">
+  <div class=tabs-container>
+    <div class="tab" id="{{'tab-' + i}}" *ngFor="let tab of tabs; let i = index">{{tab}}</div>
+  </div>
+  <div class="tabs-buttons">
+    <button (click)="scroll('tab-8')">Tab List</button>
+    <button>Add Tab</button>
+  </div>
+</div>
