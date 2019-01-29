@@ -15,7 +15,7 @@ export class TabsComponent implements OnInit {
   }
 
   scroll(id: string) {
-    document.getElementById(id).scrollIntoView();
+    document.getElementById(id).scrollIntoView({behavior: 'smooth'});
   }
 
 }

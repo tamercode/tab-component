@@ -1,12 +1,13 @@
 .tabs-component {
     display: flex;
     justify-content: flex-start;
+    position: relative;
 }
 
 .tabs-container {
     display: flex;
     flex: 1;
-    overflow: hidden;   
+    overflow: hidden;
 }
 
 .tab {
@@ -15,6 +16,20 @@
     height: 50px;
 }
 
-.tab :target {
-    transition: all 200ms;
+.first-tab {
+    position: absolute;
+    width: 200px;
+    z-index: 9999;
+    background: red;
+    height: 100%;
+}
+
+.tabs-buttons {
+    display: flex;
+}
+.tabs-button {
+    border: 1px solid black;
+    color: white;
+    background: gray;
+    border: 1px solid black;
 }
