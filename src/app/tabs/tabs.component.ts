@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'by-tabs',
@@ -7,20 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ref: ChangeDetectorRef) { }
 
   tabs = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'hhhhh', 'iiiii', 'llll'].reverse();
 
   ngOnInit() {
-    console.log(this.tabs);
+   // console.log(this.tabs);
   }
 
-  scroll(id: string) {
-    document.getElementById(id).scrollIntoView({behavior: 'smooth'});
+  scroll(i: number) {
+    this.sortArray(i);
+    document.getElementById('tab-0').scrollIntoView({behavior: 'smooth'});
   }
 
   sortArray(i: number) {
-    this.tabs = [...this.tabs.concat(this.tabs.splice(i, 1))];
+    const item = this.tabs.splice(i, 1)[0];
+    this.tabs.unshift(item);
+    this.tabs = [...this.tabs];
   }
 
 }

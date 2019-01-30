@@ -1,10 +1,29 @@
 <div class="tabs-component">
-
-    <div class=tabs-container>
-      <div [ngClass]="i === tabs.length -1 ? 'first-tab' : 'tab'" id="{{'tab-' + i}}" *ngFor="let tab of tabs; let i = index">{{tab}}</div>
+  <div class="tabs-container">
+    <div
+      #tabRef
+      [ngClass]="i === tabs.length - 1 ? 'first-tab' : 'tab'"
+      id="{{ 'tab-' + i }}"
+      *ngFor="let tab of tabs; let i = index"
+    >
+      {{ tab }}
     </div>
+  </div>
   <div class="tabs-buttons">
-    <div class="tabs-button" (click)="scroll('tab-8')">Tab List</div>
+    <div
+      class="tabs-button"
+      nz-popover
+      nzTitle="Title"
+      nzTrigger="click"
+      [nzContent]="contentTemplate"
+    >
+      Tab List
+    </div>
     <div class="tabs-button">Add Tab</div>
   </div>
 </div>
+<ng-template #contentTemplate>
+  <ul>
+    <li *ngFor="let tab of tabs; let i = index" (click)="scroll(i)" >{{tab}}</li>
+  </ul>
+ </ng-template>
