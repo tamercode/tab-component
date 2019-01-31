@@ -1,12 +1,11 @@
 <div class="tabs-component">
   <div class="tabs-container">
     <div
-      #tabRef
-      [ngClass]="i === tabs.length - 1 ? 'first-tab' : 'tab'"
+      [ngClass]="i === childrenTab.length - 1 ? 'first-tab' : 'tab'"
       id="{{ 'tab-' + i }}"
-      *ngFor="let tab of tabs; let i = index"
+      *ngFor="let tab of childrenTab; let i = index"
     >
-      {{ tab }}
+      {{ 'ciao-' + i }}
     </div>
   </div>
   <div class="tabs-buttons">
@@ -22,8 +21,10 @@
     <div class="tabs-button">Add Tab</div>
   </div>
 </div>
+<button (click)="scroll()">test</button>
+  <ng-content></ng-content>
 <ng-template #contentTemplate>
   <ul>
-    <li *ngFor="let tab of tabs; let i = index" (click)="scroll(i)" >{{tab}}</li>
+    <li *ngFor="let tab of childrenTab; let i = index"  >{{tab.title}}</li>
   </ul>
  </ng-template>

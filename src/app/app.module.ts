@@ -10,23 +10,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { TabComponent } from './tab/tab.component';
+import { TabsDirective } from './tabs/tabs.directive';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TabsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgZorroAntdModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      TabsComponent,
+      TabComponent,
+      TabsDirective
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      NgZorroAntdModule,
+      FormsModule,
+      HttpClientModule,
+      BrowserAnimationsModule
+   ],
+   providers: [ { provide: NZ_I18N, useValue: en_US } ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }
