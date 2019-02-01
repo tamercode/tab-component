@@ -6,7 +6,8 @@ import {
   ContentChildren,
   ViewChild,
   QueryList,
-  AfterViewInit
+  AfterViewInit,
+  ElementRef
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
@@ -14,10 +15,7 @@ import { TabComponent } from '../tab/tab.component';
   selector: '[byTabs]'
 })
 export class TabsDirective implements AfterContentInit, AfterViewInit {
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
+  constructor(private tabContainer: ElementRef) {}
 
   // @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
   // @ContentChildren(TemplateRef) childrenTabsTemplate: QueryList<TemplateRef<any>>;
@@ -25,7 +23,6 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   ngAfterContentInit() {}
 
   ngAfterViewInit() {
-    console.log(this.templateRef);
-    console.log(this.viewContainer);
+    console.log(this.tabContainer);
   }
 }

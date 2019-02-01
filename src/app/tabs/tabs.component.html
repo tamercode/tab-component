@@ -1,19 +1,19 @@
 <div class="tabs-component">
-    <div class="tabs-container" #container>
-        <div
-        #target
-          (click)="select(tab, target)"
-          *ngFor="let tab of childrenTab; let i = index"
-          id="{{ 'tab-' + i }}"
-          [ngClass]="{
-            'first-tab': i === childrenTab.length - 1,
-            tab: i < childrenTab.length - 1,
-            'tab-selected': tab.active
-          }"
-        >
-          {{ tab.title }}
-        </div>
+  <div class="tabs-container" #container byTabs>
+    <div
+      #target
+      (click)="select(tab, target)"
+      *ngFor="let tab of childrenTab; let i = index"
+      id="{{ 'tab-' + i }}"
+      [ngClass]="{
+        'first-tab': i === childrenTab.length - 1,
+        tab: i < childrenTab.length - 1,
+        'tab-selected': tab.active
+      }"
+    >
+      {{ tab.title }}
     </div>
+  </div>
 
   <div class="tabs-buttons">
     <div
@@ -33,8 +33,7 @@
 <ng-template #contentTemplate>
   <ul>
     <ng-container *ngFor="let tab of childrenTab; let i = index">
-    
-      <li *ngIf="i !== childrenTab.length -1" (click)="scroll(tab, i)">
+      <li *ngIf="i !== childrenTab.length - 1" (click)="scroll(tab, i)">
         {{ tab.title }}
       </li>
     </ng-container>

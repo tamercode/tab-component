@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'by-root',
@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'tab-component';
-  tabs1 = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'hhhhhhhhhhhhhhhhhhhhhhhhhhh', 'iiiii', 'llll'];
+  tabs1 = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'ggggg', 'hhhhhhhhhhhhhhhhhhhhhhhhhhh', 'iiiii', 'llll'];
   tabs: string[];
+  @ViewChild('container') container: ElementRef;
+
+
   constructor() {
     this.tabs = this.tabs1.reverse();
   }
