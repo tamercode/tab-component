@@ -15,6 +15,9 @@ import { TabComponent } from '../tab/tab.component';
   selector: '[byTabs]'
 })
 export class TabsDirective implements AfterContentInit, AfterViewInit {
+
+  elements: ElementRef[];
+
   constructor(private tabContainer: ElementRef) {}
 
   // @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
@@ -23,6 +26,8 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   ngAfterContentInit() {}
 
   ngAfterViewInit() {
-    console.log(this.tabContainer);
+    this.elements = Array.from(this.tabContainer.nativeElement.childNodes);
+    this.elements.shift();
+    console.log(this.elements);
   }
 }
