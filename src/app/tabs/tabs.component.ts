@@ -12,7 +12,9 @@ import {
   AfterContentInit,
   AfterViewInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  AfterContentChecked,
+  AfterViewChecked
 } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
@@ -22,7 +24,7 @@ import { TabComponent } from '../tab/tab.component';
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss']
 })
-export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit, AfterContentChecked, AfterViewChecked {
   @Output() selectEvent: EventEmitter<number> = new EventEmitter();
   tabSelected: TabComponent;
 
@@ -33,7 +35,8 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 
   // @ContentChildren(TabComponent, {read: ViewContainerRef}) tabs: QueryList<ViewContainerRef>;
   @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
-  // @ViewChild('container') container: HTMLElement;
+  @ContentChildren('target', {read: ElementRef}) childrenTabRef: QueryList<ElementRef>;
+  @ViewChild('container') container: ElementRef;
   // @ContentChildren('tpl') tpl: QueryList<TemplateRef<any>>;
 
   ngOnInit() {}
@@ -42,36 +45,40 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
     this.tabSelected = this.childrenTab.find(tab => tab.active);
   }
 
+  ngAfterViewChecked() {}
+
   ngAfterViewInit() {}
+
+  ngAfterContentChecked() {}
 
   scroll(tab: TabComponent, i: number) {
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
     this.selectEvent.emit(i);
-    // document.getElementById('tab-0').scrollIntoView({ behavior: 'smooth' });
-    //  console.log(this.childrenTabsTemplate);
-    // const viewRef = this.childrenTabsTemplate[i].createEmbeddedView(null);
-    //  this.vc.move(viewRef, 0);
-    // this.childrenTab.toArray()[0].
-    // console.log(this.childrenTab.toArray()[0].templateRefchildrenTabsTemplate);
-    // console.log(viewRef);
-    // console.log(this.vc);
+     this.container.nativeElement.firstElementChild.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'end'});
+    // setTimeout(() => {
+    // //  this.childrenTabRef..scrollIntoView({behavior: 'smooth', block: 'end', inline: 'end'});
+    //   debugger
+    // }, 2000);
   }
 
-  sortArray(i: number) {
-    // this.childrenTab[8] = this.childrenTab[i];
-    // const item = this.childrenTab.splice(i, 1)[0];
-    // this.childrenTab.unshift(item);
-    // this.childrenTab = [...this.childrenTab];
-  }
-
-  select(tab: TabComponent, e) {
-    const el: HTMLElement = e;
+  select(tab: TabComponent, el: HTMLElement) {
     el.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
-    // el.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
   }
+
+  // isOverflow(el: HTMLElement): boolean {
+  //   const containerLeft = this.container.nativeElement.getBoundingClientRect().left;
+  //   const containerRight = this.container.nativeElement.getBoundingClientRect().right;
+  //   const elLeft = el.getBoundingClientRect().left;
+  //   const elRight = el.getBoundingClientRect().right;
+  //   if (elLeft < containerLeft || elRight > containerRight) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }

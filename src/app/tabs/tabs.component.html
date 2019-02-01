@@ -1,5 +1,5 @@
 <div class="tabs-component">
-    <div class="tabs-container">
+    <div class="tabs-container" #container>
         <div
         #target
           (click)="select(tab, target)"
@@ -32,8 +32,11 @@
 <!-- <button (click)="scroll()">test</button> -->
 <ng-template #contentTemplate>
   <ul>
-    <li *ngFor="let tab of childrenTab; let i = index" (click)="scroll(tab, i)">
-      {{ tab.title }}
-    </li>
+    <ng-container *ngFor="let tab of childrenTab; let i = index">
+    
+      <li *ngIf="i !== childrenTab.length -1" (click)="scroll(tab, i)">
+        {{ tab.title }}
+      </li>
+    </ng-container>
   </ul>
 </ng-template>

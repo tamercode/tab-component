@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'tab-component';
-  tabs1 = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'hhhhh', 'iiiii', 'llll'];
+  tabs1 = ['aaaa', 'bbbb', 'ccccc', 'dddd', 'eeeee', 'fffff', 'hhhhhhhhhhhhhhhhhhhhhhhhhhh', 'iiiii', 'llll'];
   tabs: string[];
   constructor() {
     this.tabs = this.tabs1.reverse();

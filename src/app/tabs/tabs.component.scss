@@ -1,42 +1,44 @@
 .tabs-component {
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .tabs-container {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    flex-direction: row-reverse;
-    margin-left: 200px;// deve essere uguale alla larghezza dalla prima tab
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  flex-direction: row-reverse;
+  margin-left: 200px; // deve essere uguale alla larghezza dalla prima tab
 }
 
 .tab {
-    border: 1px solid black;
-    flex: 0 0 200px;
-    height: 50px;
+  border: 1px solid black;
+  flex: 0 0 200px;
+  height: 50px;
+  // min-width: 200px;
+  // min-height: 50px;
 
-    &.tab-selected {
-        background: green
-    }
+  &.tab-selected {
+    background: green;
+  }
 }
 
 .first-tab {
-    position: absolute;
-    width: 200px;
-    z-index: 9999;
-    background: red;
-    height: 100%;
-    left: 0;
+  position: absolute;
+  width: 200px;
+  z-index: 9999;
+  background: red;
+  height: 100%;
+  left: 0;
 }
 
 .tabs-buttons {
-    display: flex;
+  display: flex;
 }
 .tabs-button {
-    border: 1px solid black;
-    color: white;
-    background: gray;
-    border: 1px solid black;
+  border: 1px solid black;
+  color: white;
+  background: gray;
+  border: 1px solid black;
 }

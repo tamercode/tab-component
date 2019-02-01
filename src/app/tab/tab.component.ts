@@ -7,8 +7,8 @@ import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmit
   styleUrls: ['./tab.component.scss']
 })
 export class TabComponent implements OnInit, AfterViewInit {
-  @Input() title: string;
-  @Input() active: boolean;
+  @Input() title = 'tab';
+  @Input() active = false;
 
   constructor() {}
 
