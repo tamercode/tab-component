@@ -1,10 +1,22 @@
 import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { trigger, transition, animate, style } from '@angular/animations';
 
 
 @Component({
   selector: 'by-tab',
   templateUrl: './tab.component.html',
-  styleUrls: ['./tab.component.scss']
+  styleUrls: ['./tab.component.scss'],
+  animations: [
+    trigger('panelInOut', [
+        transition('void => *', [
+            style({transform: 'translateX(100%)'}),
+            animate(800)
+        ]),
+        transition('* => void', [
+            animate(800, style({transform: 'translateX(-100%)'}))
+        ])
+    ])
+]
 })
 export class TabComponent implements OnInit, AfterViewInit {
   @Input() title = 'tab';

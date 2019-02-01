@@ -17,7 +17,7 @@ import { TabComponent } from '../tab/tab.component';
 export class TabsDirective implements AfterContentInit, AfterViewInit {
   elements: Array<{ element: Element; tabComponent: TabComponent }>;
   private options = {
-    threshold: [0.5]
+    threshold: 1
   };
   private _intersectionObserver?: IntersectionObserver;
 
@@ -50,7 +50,7 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
     );
     this._intersectionObserver = new IntersectionObserver(entries => {
       this.checkForIntersection(entries);
-    }, {});
+    }, this.options);
     this.elements.forEach(
       (elemet: { element: Element; tabComponent: TabComponent }) =>
         this._intersectionObserver.observe(elemet.element)
@@ -59,20 +59,20 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
 
   private checkForIntersection(entries: Array<IntersectionObserverEntry>) {
     entries.forEach((entry: IntersectionObserverEntry, index: number) => {
-      const ratio = entry.intersectionRatio;
+      const ratio = entry.isIntersecting;
       const element = entry.target;
       const tabId = element.id;
-      if (ratio > 0) {
+      if (!ratio) {
         // in
         this.elements.find(
           el => el.element.id === tabId
-        ).tabComponent.visible = true;
+        ).tabComponent.visible = false;
         console.log('mettilo fuori');
       } else {
         // out
         this.elements.find(
           el => el.element.id === tabId
-        ).tabComponent.visible = false;
+        ).tabComponent.visible = true;
         console.log('mettilo dentro');
       }
     });
