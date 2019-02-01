@@ -69,4 +69,14 @@ export class TabsComponent
     tab.active = true;
     this.tabSelected = tab;
   }
+
+  onIn(index: number): void {
+    console.log('in ', index);
+    this.childrenTab.toArray()[index].visible = true;
+  }
+
+  onOut(index: number): void {
+    console.log('out ', index);
+    this.childrenTab.toArray()[index].visible = false;
+  }
 }

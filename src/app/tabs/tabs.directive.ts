@@ -1,13 +1,13 @@
 import {
   Directive,
-  TemplateRef,
-  ViewContainerRef,
   AfterContentInit,
-  ContentChildren,
-  ViewChild,
-  QueryList,
   AfterViewInit,
-  ElementRef
+  ElementRef,
+  EventEmitter,
+  Output,
+  ContentChildren,
+  QueryList,
+  Input
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
@@ -15,19 +15,66 @@ import { TabComponent } from '../tab/tab.component';
   selector: '[byTabs]'
 })
 export class TabsDirective implements AfterContentInit, AfterViewInit {
+  elements: Array<{ element: Element; tabComponent: TabComponent }>;
+  private options = {
+    threshold: [0.5]
+  };
+  private _intersectionObserver?: IntersectionObserver;
 
-  elements: ElementRef[];
+  @Input('byTabs')
+  private set _childrenTab(_childrenTab: QueryList<TabComponent>) {
+    if (!_childrenTab) {
+      return;
+    }
+    this.childrenTab = _childrenTab.toArray();
+  }
+  private childrenTab: TabComponent[];
+
+  @Output() public out: EventEmitter<number> = new EventEmitter();
+  @Output() public in: EventEmitter<number> = new EventEmitter();
 
   constructor(private tabContainer: ElementRef) {}
-
-  // @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
-  // @ContentChildren(TemplateRef) childrenTabsTemplate: QueryList<TemplateRef<any>>;
 
   ngAfterContentInit() {}
 
   ngAfterViewInit() {
-    this.elements = Array.from(this.tabContainer.nativeElement.childNodes);
-    this.elements.shift();
-    console.log(this.elements);
+    const refArray = Array.from(this.tabContainer.nativeElement.childNodes);
+    refArray.shift();
+    this.elements = refArray.map(
+      (el: Element, index: number) => {
+        return {
+          element: el,
+          tabComponent: this.childrenTab[index]
+        };
+      }
+    );
+    this._intersectionObserver = new IntersectionObserver(entries => {
+      this.checkForIntersection(entries);
+    }, {});
+    this.elements.forEach(
+      (elemet: { element: Element; tabComponent: TabComponent }) =>
+        this._intersectionObserver.observe(elemet.element)
+    );
+  }
+
+  private checkForIntersection(entries: Array<IntersectionObserverEntry>) {
+    entries.forEach((entry: IntersectionObserverEntry, index: number) => {
+      const ratio = entry.intersectionRatio;
+      const element = entry.target;
+      const tabId = element.id;
+      if (ratio > 0) {
+        // in
+        this.elements.find(
+          el => el.element.id === tabId
+        ).tabComponent.visible = true;
+        console.log('mettilo fuori');
+      } else {
+        // out
+        this.elements.find(
+          el => el.element.id === tabId
+        ).tabComponent.visible = false;
+        console.log('mettilo dentro');
+      }
+    });
   }
 }

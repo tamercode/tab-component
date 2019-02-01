@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -9,10 +9,15 @@ import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmit
 export class TabComponent implements OnInit, AfterViewInit {
   @Input() title = 'tab';
   @Input() active = false;
+  @Input() visible = true;
+  @Input() tabId: string;
+  public elementRef: ElementRef;
 
-  constructor() {}
+  constructor(private el: ElementRef) {}
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    this.elementRef = this.el;
+  }
 
   ngOnInit() {}
 }

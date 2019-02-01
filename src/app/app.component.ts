@@ -19,11 +19,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {}
 
   test(i: number) {
-    console.log(this.tabs);
    const item = this.tabs.splice(i, 1)[0];
      this.tabs.unshift(item);
      this.tabs = [...this.tabs];
-     console.log(this.tabs);
   }
 
 }
