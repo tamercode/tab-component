@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'by-tab',
@@ -7,6 +8,7 @@ import { Component, OnInit, Input, TemplateRef, AfterViewInit } from '@angular/c
 })
 export class TabComponent implements OnInit, AfterViewInit {
   @Input() title: string;
+  @Input() active: boolean;
 
   constructor() {}
 
