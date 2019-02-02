@@ -19,6 +19,7 @@ import {
 } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'by-tabs',
@@ -35,6 +36,7 @@ export class TabsComponent
   @Output() selectEvent: EventEmitter<number> = new EventEmitter();
   tabSelected: TabComponent;
   tabSelectedRef: HTMLElement;
+  translateValue: number;
 
   constructor(private ref: ChangeDetectorRef) {}
 
@@ -46,17 +48,10 @@ export class TabsComponent
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (this.tabSelectedRef) {
-      const containerLeft = this.container.nativeElement.getBoundingClientRect()
-        .left;
-      const containerRight = this.container.nativeElement.getBoundingClientRect()
-        .right;
+      const containerLeft = this.container.nativeElement.getBoundingClientRect().left;
       const tabLeft = this.tabSelectedRef.getBoundingClientRect().left;
-      const tabRight = this.tabSelectedRef.getBoundingClientRect().right;
-      if (tabLeft < containerLeft || tabRight > containerRight) {
-        this.tabSelectedRef.scrollIntoView({
-          behavior: 'smooth',
-          inline: 'start'
-        });
+      if (tabLeft < containerLeft) { // ottimization
+        this.scrollTab(this.container.nativeElement, this.tabSelectedRef);
       }
     }
   }
@@ -76,35 +71,44 @@ export class TabsComponent
     tab.active = true;
     this.tabSelected = tab;
     this.selectEvent.emit(i);
-    this.container.nativeElement.firstElementChild.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'end'
-    });
+    this.tabSelectedRef = <HTMLElement>(
+      this.container.nativeElement.firstElementChild
+    );
+    this.scrollTab(this.container.nativeElement, this.tabSelectedRef);
   }
 
   select(tab: TabComponent, el: HTMLElement, containerEl: HTMLElement) {
     console.log(containerEl);
     this.tabSelectedRef = el;
-    el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+    this.scrollTab(containerEl, el);
+    // el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
   }
 
-  // isOverflow(container: Element, tab: HTMLElement): any {
-  //   const containerLeft = container.getBoundingClientRect().left;
-  //   const containerRight = container.getBoundingClientRect().right;
-  //   const tabLeft = tab.getBoundingClientRect().left;
-  //   const tabRight = tab.getBoundingClientRect().right;
-  //   if (tabLeft < containerLeft) {
-  //     return 'start';
-  //   } else
-  //   if (tabLeft < containerLeft) {
-  //     return 'end';
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  scrollTab(container: Element, tab: HTMLElement): void {
+    const containerLeft =  container.getBoundingClientRect().left;
+    const containerRight = container.getBoundingClientRect().right;
+    const tabLeft = tab.getBoundingClientRect().left;
+    const tabRight = tab.getBoundingClientRect().right;
+    const scrollLeftContainer = container.scrollLeft;
+    if (tabLeft < containerLeft) {
+      const offset = containerLeft - tabLeft;
+      container.scrollTo({
+        top: 0,
+        left: scrollLeftContainer - offset,
+        behavior: 'smooth'
+      });
+    } else if (tabRight > containerRight) {
+      const offset = containerRight - tabRight;
+      container.scrollTo({
+        top: 0,
+        left: scrollLeftContainer - offset,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   // scrollTab(container: Element, tab: HTMLElement): void {
   //   const direction = this.isOverflow(container, tab);

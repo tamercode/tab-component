@@ -6,19 +6,18 @@
 
 .tabs-container {
   display: flex;
-  // flex: 1;
-  width: 100%;
+  flex: 1;
+  // width: 100%;
   overflow: hidden;
   flex-direction: row-reverse;
   margin-left: 200px; // deve essere uguale alla larghezza dalla prima tab
+  transition: all 300ms;
 }
 
 .tab {
   border: 1px solid black;
   flex: 0 0 200px;
   height: 50px;
-  // min-width: 200px;
-  // min-height: 50px;
 
   &.tab-selected {
     background: green;
