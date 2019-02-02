@@ -40,14 +40,12 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   ngAfterViewInit() {
     const refArray = Array.from(this.tabContainer.nativeElement.childNodes);
     refArray.shift();
-    this.elements = refArray.map(
-      (el: Element, index: number) => {
-        return {
-          element: el,
-          tabComponent: this.childrenTab[index]
-        };
-      }
-    );
+    this.elements = refArray.map((el: Element, index: number) => {
+      return {
+        element: el,
+        tabComponent: this.childrenTab[index]
+      };
+    });
     this._intersectionObserver = new IntersectionObserver(entries => {
       this.checkForIntersection(entries);
     }, this.options);
@@ -59,22 +57,35 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
 
   private checkForIntersection(entries: Array<IntersectionObserverEntry>) {
     entries.forEach((entry: IntersectionObserverEntry, index: number) => {
-      const ratio = entry.isIntersecting;
       const element = entry.target;
+      // const isSelected = element.className.includes('tab-selected');
       const tabId = element.id;
-      if (!ratio) {
-        // in
-        this.elements.find(
-          el => el.element.id === tabId
-        ).tabComponent.visible = false;
-        console.log('mettilo fuori');
-      } else {
-        // out
-        this.elements.find(
-          el => el.element.id === tabId
-        ).tabComponent.visible = true;
-        console.log('mettilo dentro');
-      }
+      const findElement = this.elements.find(el => el.element.id === tabId);
+        const ratio = entry.isIntersecting;
+        // console.log(entry.boundingClientRect);
+        // console.log(entry.intersectionRect);
+        // console.log(entry.isIntersecting);
+        // console.log(entry.rootBounds);
+        // console.log(entry.target);
+        // console.log(entry.time);
+        if (!ratio) {
+          findElement.tabComponent.visible = false;
+        } else {
+          findElement.tabComponent.visible = true;
+        }
     });
+  }
+
+ buildThresholdList(_numStem: number): number[] {
+    const thresholds: number[] = [];
+    const numSteps = _numStem;
+
+    for (let i = 1.0; i <= numSteps; i++) {
+      const ratio = i / numSteps;
+      thresholds.push(ratio);
+    }
+
+    thresholds.push(0);
+    return thresholds;
   }
 }

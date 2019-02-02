@@ -14,7 +14,8 @@ import {
   Output,
   EventEmitter,
   AfterContentChecked,
-  AfterViewChecked
+  AfterViewChecked,
+  HostListener
 } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
@@ -33,13 +34,32 @@ export class TabsComponent
     AfterViewChecked {
   @Output() selectEvent: EventEmitter<number> = new EventEmitter();
   tabSelected: TabComponent;
+  tabSelectedRef: HTMLElement;
 
   constructor(private ref: ChangeDetectorRef) {}
 
   @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
-  @ViewChild('container') container: ElementRef;
+  @ViewChild('container') container: ElementRef<Element>;
 
   ngOnInit() {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (this.tabSelectedRef) {
+      const containerLeft = this.container.nativeElement.getBoundingClientRect()
+        .left;
+      const containerRight = this.container.nativeElement.getBoundingClientRect()
+        .right;
+      const tabLeft = this.tabSelectedRef.getBoundingClientRect().left;
+      const tabRight = this.tabSelectedRef.getBoundingClientRect().right;
+      if (tabLeft < containerLeft || tabRight > containerRight) {
+        this.tabSelectedRef.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'start'
+        });
+      }
+    }
+  }
 
   ngAfterContentInit() {
     this.tabSelected = this.childrenTab.find(tab => tab.active);
@@ -58,25 +78,41 @@ export class TabsComponent
     this.selectEvent.emit(i);
     this.container.nativeElement.firstElementChild.scrollIntoView({
       behavior: 'smooth',
-      block: 'end',
       inline: 'end'
     });
   }
 
-  select(tab: TabComponent, el: HTMLElement) {
+  select(tab: TabComponent, el: HTMLElement, containerEl: HTMLElement) {
+    console.log(containerEl);
+    this.tabSelectedRef = el;
     el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
   }
 
-  onIn(index: number): void {
-    console.log('in ', index);
-    this.childrenTab.toArray()[index].visible = true;
-  }
+  // isOverflow(container: Element, tab: HTMLElement): any {
+  //   const containerLeft = container.getBoundingClientRect().left;
+  //   const containerRight = container.getBoundingClientRect().right;
+  //   const tabLeft = tab.getBoundingClientRect().left;
+  //   const tabRight = tab.getBoundingClientRect().right;
+  //   if (tabLeft < containerLeft) {
+  //     return 'start';
+  //   } else
+  //   if (tabLeft < containerLeft) {
+  //     return 'end';
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
-  onOut(index: number): void {
-    console.log('out ', index);
-    this.childrenTab.toArray()[index].visible = false;
-  }
+  // scrollTab(container: Element, tab: HTMLElement): void {
+  //   const direction = this.isOverflow(container, tab);
+  //   if (direction) {
+  //     tab.scrollIntoView({
+  //       behavior: 'smooth',
+  //       inline: direction
+  //     });
+  //   }
+  // }
 }

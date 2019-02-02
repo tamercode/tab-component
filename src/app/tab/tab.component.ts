@@ -9,11 +9,11 @@ import { trigger, transition, animate, style } from '@angular/animations';
   animations: [
     trigger('panelInOut', [
         transition('void => *', [
-            style({transform: 'translateX(100%)'}),
-            animate(800)
+            style({transform: 'translateX(-90%)'}),
+            animate(400)
         ]),
         transition('* => void', [
-            animate(800, style({transform: 'translateX(-100%)'}))
+            animate(400, style({transform: 'translateX(+90%)'}))
         ])
     ])
 ]

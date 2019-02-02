@@ -8,7 +8,7 @@
   >
     <div
       #target
-      (click)="select(tab, target)"
+      (click)="select(tab, target, container)"
       *ngFor="let tab of childrenTab; let i = index"
       id="{{ 'tab-' + i }}"
       [ngClass]="{
