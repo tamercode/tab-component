@@ -11,20 +11,20 @@
   flex-direction: row-reverse;
   margin-left: 200px; // deve essere uguale alla larghezza dalla prima tab
   align-items: flex-end;
-
+  height: 85px;
 }
 
 .tab {
+  flex: 0 0 200px;
+  display: flex;
+  justify-content: center;
   border-width: 1px 0 1px 0;
   border-style: solid;
   border-color: #c5c9cc;
-  flex: 0 0 200px;
   height: 72px;
-  //margin-left: -1px;
-  display: flex;
-  justify-content: center;
   background: white;
   position: relative;
+  padding: 0 10px 0 10px;
 
   .tab-opaticy {
     display: flex;
@@ -32,12 +32,6 @@
     flex: 1;
     justify-content: center;
   }
-
-  // .tab-titles {
-  //   display: flex;
-  //   align-items: flex-end;
-  //   flex: 1;
-  // }
 
   .tab-divider {
     border: 0.5px solid #c5c9cc;
@@ -47,6 +41,7 @@
     right: -1px;
   }
 
+
   .tab-title {
     font-size: 15px;
     line-height: 17px;
@@ -55,6 +50,13 @@
     font-weight: 600;
     text-transform: capitalize;
     margin-top: 20px;
+    min-width: 200px;
+    max-width: 200px;
+    flex-basis: auto; /* default value */
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .tab-subtitle {
@@ -102,11 +104,120 @@
 
 .first-tab {
   position: absolute;
-  width: 200px;
   z-index: 9999;
-  background: red;
-  height: 100%;
+  // height: 100%;
   left: 0;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  border-color: #c5c9cc;
+  height: 72px;
+  background: white;
+  padding: 0 10px 0 10px;
+
+  
+
+  .tab-opaticy {
+    display: flex;
+    opacity: 0.5;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .tab-divider {
+    border: 0.5px solid #c5c9cc;
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    right: -1px;
+  }
+
+  .tab-title {
+    font-size: 15px;
+    line-height: 17px;
+    color: black;
+    font-family: 'Avenir Next LT Pro Regular';
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-top: 20px;
+    min-width: 200px;
+    max-width: 200px;
+    flex-basis: auto; /* default value */
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tab-subtitle {
+    font-family: 'Avenir Next LT Pro Regular';
+    text-transform: capitalize;
+    color: black;
+  }
+
+  .tab-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #62cb31;
+    margin-right: 15px;
+    margin-top: 20px;
+  }
+
+  &.tab-selected {
+    background: #f1f4f7;
+    width: 200px;
+    height: 85px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-width: 1px 1px 0 1px;
+    border-style: solid;
+    border-color: #c5c9cc;
+
+    & .tab-title {
+      margin-top: 30px;
+    }
+
+    & .tab-circle {
+      margin-top: 30px;
+    }
+
+    & .tab-opaticy {
+      opacity: 1;
+    }
+
+    & .tab-divider {
+      border: 0;
+    }
+  }
+}
+
+.first-tab-test {
+  position: absolute;
+  z-index: 9999;
+  // height: 100%;
+  left: 0;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  border-color: #c5c9cc;
+  height: 72px;
+  background: white;
+  padding: 0 10px 0 10px;
+
+  background: #f1f4f7;
+  width: 200px;
+  height: 85px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+  border-color: #c5c9cc;
+
 }
 
 .tabs-buttons {

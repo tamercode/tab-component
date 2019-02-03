@@ -101,9 +101,9 @@ export class TabsComponent
 
   setTabClasses(index: number, tab: TabComponent) {
     const classes = {
-      [this.firstTabStyle]: index === this.childrenTab.length - 1,
+      'first-tab-test' : index === this.childrenTab.length - 1,
       [this.tabStyle]: index < this.childrenTab.length - 1,
-      [this.tabSelectedStyle]: tab.active,
+      [this.tabSelectedStyle]: tab.active && index !== this.childrenTab.length - 1,
     };
     return classes;
   }

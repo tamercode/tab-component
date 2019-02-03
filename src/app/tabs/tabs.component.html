@@ -21,15 +21,15 @@
 <ng-template #tabDefaultTpl>
   <div
     #tabRef
+    [ngClass]="setTabClasses(i, tab)"
     (click)="onSelect(tab, tabRef, tabContainerRef)"
     *ngFor="let tab of childrenTab; let i = index"
     id="{{ 'tab-' + i }}"
-    [ngClass]="setTabClasses(i, tab)"
   >
-  <div class="tab-opaticy">
+  <div class="tab-opaticy" *ngIf="i !== childrenTab.length - 1">
     <div class="tab-circle"></div>
     <div class="tab-titles">
-      <div class="tab-title">branchina francesca</div>
+      <div class="tab-title">branchina francescaddddddddddddddddddddddddddddddddddddd</div>
       <div class="tab-subtitle"># 173 - €3254,33</div>
     </div>
     <div class="tab-divider"></div>
