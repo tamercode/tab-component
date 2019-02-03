@@ -11,23 +11,40 @@
   flex-direction: row-reverse;
   margin-left: 200px; // deve essere uguale alla larghezza dalla prima tab
   align-items: flex-end;
+
 }
 
 .tab {
-  border-width: 1px 1px 1px 1px;
+  border-width: 1px 0 1px 0;
   border-style: solid;
   border-color: #c5c9cc;
   flex: 0 0 200px;
-  height: 50px;
-  margin-left: -1px;
+  height: 72px;
+  //margin-left: -1px;
   display: flex;
   justify-content: center;
+  background: white;
+  position: relative;
 
   .tab-opaticy {
     display: flex;
     opacity: 0.5;
     flex: 1;
     justify-content: center;
+  }
+
+  // .tab-titles {
+  //   display: flex;
+  //   align-items: flex-end;
+  //   flex: 1;
+  // }
+
+  .tab-divider {
+    border: 0.5px solid #c5c9cc;
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    right: -1px;
   }
 
   .tab-title {
@@ -75,6 +92,10 @@
 
     & .tab-opaticy {
       opacity: 1;
+    }
+
+    & .tab-divider {
+      border: 0;
     }
   }
 }
