@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Avenir Next LT Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Avenir Next LT Pro Regular'),
+      url('../src/assets/avenir-next-lt-pro-cufonfonts-webfont/AvenirNextLTPro-Regular.woff')
+        format('woff');
+  }
+  
+  * {
+    font-family: 'Avenir Next LT Pro Regular';
+  }

@@ -1,0 +1,48 @@
+<div class="tabs-component">
+  <div class="tabs-container" #tabContainerRef [byTabs]="childrenTab">
+    <ng-container *ngTemplateOutlet="tabDefaultTpl"></ng-container>
+  </div>
+
+  <div class="tabs-buttons">
+    <div
+      class="tabs-button"
+      nz-popover
+      nzTitle="Title"
+      nzTrigger="click"
+      [nzContent]="tabListTpl"
+    >
+      Tab List
+    </div>
+    <div class="tabs-button">Add Tab</div>
+  </div>
+</div>
+<ng-content></ng-content>
+
+<ng-template #tabDefaultTpl>
+  <div
+    #tabRef
+    [ngClass]="setTabClasses(i, tab)"
+    (click)="onSelect(tab, tabRef, tabContainerRef)"
+    *ngFor="let tab of childrenTab; let i = index"
+    id="{{ 'tab-' + i }}"
+  >
+  <div class="tab-opaticy" *ngIf="i !== childrenTab.length - 1">
+    <div class="tab-circle"></div>
+    <div class="tab-titles">
+      <div class="tab-title">branchina francescaddddddddddddddddddddddddddddddddddddd</div>
+      <div class="tab-subtitle"># 173 - €3254,33</div>
+    </div>
+    <div class="tab-divider"></div>
+  </div>
+  </div>
+</ng-template>
+
+<ng-template #tabListTpl>
+  <ul>
+    <ng-container *ngFor="let tab of childrenTab; let i = index">
+      <li *ngIf="!tab.visible" (click)="onJumpToTab(tab, i)">
+        {{ tab.title }} {{ tab.visible }}
+      </li>
+    </ng-container>
+  </ul>
+</ng-template>
