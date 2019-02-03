@@ -37,7 +37,7 @@
 <ng-template #contentTemplate>
   <ul>
     <ng-container *ngFor="let tab of childrenTab; let i = index">
-      <li *ngIf="!tab.visible" (click)="scroll(tab, i)">
+      <li *ngIf="!tab.visible" (click)="jumpToTab(tab, i)">
         {{ tab.title }} {{tab.visible}}
       </li>
     </ng-container>

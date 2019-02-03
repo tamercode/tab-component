@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {}
 
-  moveToTheEnd(i: number) {
+  moveToEnd(i: number) {
    this.tabs = this.tabs.concat(this.tabs.splice(i, 1));
   }
 }

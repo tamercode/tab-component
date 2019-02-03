@@ -3,23 +3,18 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  ContentChild,
   ContentChildren,
-  QueryList,
-  ViewContainerRef,
-  TemplateRef,
-  ViewChildren,
   AfterContentInit,
   AfterViewInit,
   Output,
   EventEmitter,
   AfterContentChecked,
   AfterViewChecked,
-  HostListener
+  HostListener,
+  QueryList
 } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'by-tabs',
@@ -34,8 +29,7 @@ export class TabsComponent
     AfterContentChecked,
     AfterViewChecked {
   @Output() selectEvent: EventEmitter<number> = new EventEmitter();
-  tabSelected: TabComponent;
-  tabSelectedRef: HTMLElement;
+  tabSelected: {elementRef: HTMLElement, tabComponent: TabComponent} = {elementRef: null, tabComponent: null};
   translateValue: number;
 
   constructor(private ref: ChangeDetectorRef) {}
@@ -53,17 +47,17 @@ export class TabsComponent
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (this.tabSelectedRef) {
+    if (this.tabSelected.elementRef) {
       const containerLeft = this.container.nativeElement.getBoundingClientRect().left;
-      const tabLeft = this.tabSelectedRef.getBoundingClientRect().left;
+      const tabLeft = this.tabSelected.elementRef.getBoundingClientRect().left;
       if (tabLeft < containerLeft) { // ottimization
-        this.scrollTab(this.container.nativeElement, this.tabSelectedRef);
+        this.scrollTab(this.container.nativeElement, this.tabSelected.elementRef);
       }
     }
   }
 
   ngAfterContentInit() {
-    this.tabSelected = this.childrenTab.find(tab => tab.active);
+    this.tabSelected.tabComponent = this.childrenTab.find(tab => tab.active);
   }
 
   ngAfterViewChecked() {}
@@ -72,23 +66,23 @@ export class TabsComponent
 
   ngAfterContentChecked() {}
 
-  scroll(tab: TabComponent, i: number) {
-    this.tabSelected.active = false;
-    tab.active = true;
-    this.tabSelected = tab;
+  jumpToTab(tab: TabComponent, i: number) {
+    this.tabSelected.tabComponent.active = false;
+    this.tabSelected.tabComponent = tab;
+    this.tabSelected.tabComponent.active = true;
     this.selectEvent.emit((this.childrenTab.length - 1) - i);
-    this.tabSelectedRef = <HTMLElement>(
+    this.tabSelected.elementRef = <HTMLElement>(
       this.container.nativeElement.firstElementChild
     );
-    this.scrollTab(this.container.nativeElement, this.tabSelectedRef);
+    this.scrollTab(this.container.nativeElement, this.tabSelected.elementRef);
   }
 
   select(tab: TabComponent, el: HTMLElement, containerEl: HTMLElement) {
-    this.tabSelectedRef = el;
-    this.scrollTab(containerEl, el);
-    this.tabSelected.active = false;
-    tab.active = true;
-    this.tabSelected = tab;
+    this.tabSelected.elementRef = el;
+    this.scrollTab(containerEl, this.tabSelected.elementRef);
+    this.tabSelected.tabComponent.active = false;
+    this.tabSelected.tabComponent = tab;
+    this.tabSelected.tabComponent.active = true;
   }
 
   scrollTab(container: Element, tab: HTMLElement): void {
