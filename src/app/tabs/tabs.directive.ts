@@ -69,16 +69,16 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
     });
   }
 
- buildThresholdList(_numStem: number): number[] {
-    const thresholds: number[] = [];
-    const numSteps = _numStem;
+//  buildThresholdList(_numStem: number): number[] {
+//     const thresholds: number[] = [];
+//     const numSteps = _numStem;
 
-    for (let i = 1.0; i <= numSteps; i++) {
-      const ratio = i / numSteps;
-      thresholds.push(ratio);
-    }
+//     for (let i = 1.0; i <= numSteps; i++) {
+//       const ratio = i / numSteps;
+//       thresholds.push(ratio);
+//     }
 
-    thresholds.push(0);
-    return thresholds;
-  }
+//     thresholds.push(0);
+//     return thresholds;
+//   }
 }

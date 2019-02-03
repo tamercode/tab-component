@@ -1,12 +1,12 @@
 <div class="tabs-component">
   <div
     class="tabs-container"
-    #container
+    #tabContainerRef
     [byTabs]="childrenTab"
   >
     <div
-      #target
-      (click)="select(tab, target, container)"
+      #tabRef
+      (click)="onSelect(tab, tabRef, tabContainerRef)"
       *ngFor="let tab of childrenTab; let i = index"
       id="{{ 'tab-' + i }}"
       [ngClass]="{
@@ -25,7 +25,7 @@
       nz-popover
       nzTitle="Title"
       nzTrigger="click"
-      [nzContent]="contentTemplate"
+      [nzContent]="tabListTpl"
     >
       Tab List
     </div>
@@ -33,11 +33,11 @@
   </div>
 </div>
 <ng-content></ng-content>
-<!-- <button (click)="scroll()">test</button> -->
-<ng-template #contentTemplate>
+
+<ng-template #tabListTpl>
   <ul>
     <ng-container *ngFor="let tab of childrenTab; let i = index">
-      <li *ngIf="!tab.visible" (click)="jumpToTab(tab, i)">
+      <li *ngIf="!tab.visible" (click)="onJumpToTab(tab, i)">
         {{ tab.title }} {{tab.visible}}
       </li>
     </ng-container>
