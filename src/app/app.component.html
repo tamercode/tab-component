@@ -1,3 +1,5 @@
+
+
   <by-tabs (selectEvent)="onMoveToEnd($event)">
     <by-tab *ngFor="let tab of tabs; let i = index" [active]="i === tabs.length -1 ? true : false" [title]="tab">{{tab}}</by-tab>
   </by-tabs>
