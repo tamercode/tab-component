@@ -101,20 +101,10 @@ export class TabsComponent
 
   setTabClasses(index: number, tab: TabComponent) {
     const classes = {
-      'first-tab-test' : index === this.childrenTab.length - 1,
+      [this.firstTabStyle] : index === this.childrenTab.length - 1,
       [this.tabStyle]: index < this.childrenTab.length - 1,
-      [this.tabSelectedStyle]: tab.active && index !== this.childrenTab.length - 1,
+      [this.tabSelectedStyle]: tab.active,
     };
     return classes;
   }
-
-  // scrollTab(container: Element, tab: HTMLElement): void {
-  //   const direction = this.isOverflow(container, tab);
-  //   if (direction) {
-  //     tab.scrollIntoView({
-  //       behavior: 'smooth',
-  //       inline: direction
-  //     });
-  //   }
-  // }
 }
