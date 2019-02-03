@@ -21,14 +21,7 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   };
   private _intersectionObserver?: IntersectionObserver;
 
-  @Input('byTabs')
-  private set _childrenTab(_childrenTab: QueryList<TabComponent>) {
-    if (!_childrenTab) {
-      return;
-    }
-    this.childrenTab = _childrenTab.toArray();
-  }
-  private childrenTab: TabComponent[];
+  @Input('byTabs') childrenTab: TabComponent[];
 
   @Output() public out: EventEmitter<number> = new EventEmitter();
   @Output() public in: EventEmitter<number> = new EventEmitter();

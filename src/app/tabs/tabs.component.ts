@@ -40,8 +40,14 @@ export class TabsComponent
 
   constructor(private ref: ChangeDetectorRef) {}
 
-  @ContentChildren(TabComponent) childrenTab: QueryList<TabComponent>;
+  @ContentChildren(TabComponent)
+  set _childrenTab (_childrenTab: QueryList<TabComponent>) {
+    this.childrenTab = _childrenTab.toArray().reverse();
+    console.log('lista-interna ', this.childrenTab);
+  }
   @ViewChild('container') container: ElementRef<Element>;
+
+  childrenTab: TabComponent[];
 
   ngOnInit() {}
 
@@ -70,7 +76,7 @@ export class TabsComponent
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
-    this.selectEvent.emit(i);
+    this.selectEvent.emit((this.childrenTab.length - 1) - i);
     this.tabSelectedRef = <HTMLElement>(
       this.container.nativeElement.firstElementChild
     );
@@ -78,10 +84,8 @@ export class TabsComponent
   }
 
   select(tab: TabComponent, el: HTMLElement, containerEl: HTMLElement) {
-    console.log(containerEl);
     this.tabSelectedRef = el;
     this.scrollTab(containerEl, el);
-    // el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
     this.tabSelected.active = false;
     tab.active = true;
     this.tabSelected = tab;
