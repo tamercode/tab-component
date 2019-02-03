@@ -5,8 +5,6 @@ import {
   ElementRef,
   EventEmitter,
   Output,
-  ContentChildren,
-  QueryList,
   Input
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
@@ -22,9 +20,6 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   private _intersectionObserver?: IntersectionObserver;
 
   @Input('byTabs') childrenTab: TabComponent[];
-
-  @Output() public out: EventEmitter<number> = new EventEmitter();
-  @Output() public in: EventEmitter<number> = new EventEmitter();
 
   constructor(private tabContainer: ElementRef) {}
 
@@ -51,7 +46,6 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   private checkForIntersection(entries: Array<IntersectionObserverEntry>) {
     entries.forEach((entry: IntersectionObserverEntry, index: number) => {
       const element = entry.target;
-      // const isSelected = element.className.includes('tab-selected');
       const tabId = element.id;
       const findElement = this.elements.find(el => el.element.id === tabId);
         const ratio = entry.isIntersecting;
@@ -68,17 +62,4 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
         }
     });
   }
-
-//  buildThresholdList(_numStem: number): number[] {
-//     const thresholds: number[] = [];
-//     const numSteps = _numStem;
-
-//     for (let i = 1.0; i <= numSteps; i++) {
-//       const ratio = i / numSteps;
-//       thresholds.push(ratio);
-//     }
-
-//     thresholds.push(0);
-//     return thresholds;
-//   }
 }

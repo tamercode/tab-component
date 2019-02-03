@@ -1,4 +1,23 @@
 <div class="tabs-component">
+
+  <ng-container *ngTemplateOutlet="tabDefaultTpl"></ng-container>
+
+  <div class="tabs-buttons">
+    <div
+      class="tabs-button"
+      nz-popover
+      nzTitle="Title"
+      nzTrigger="click"
+      [nzContent]="tabListTpl"
+    >
+      Tab List
+    </div>
+    <div class="tabs-button">Add Tab</div>
+  </div>
+</div>
+<ng-content></ng-content>
+
+<ng-template #tabDefaultTpl>
   <div
     class="tabs-container"
     #tabContainerRef
@@ -18,21 +37,7 @@
       {{ tab.title }}
     </div>
   </div>
-
-  <div class="tabs-buttons">
-    <div
-      class="tabs-button"
-      nz-popover
-      nzTitle="Title"
-      nzTrigger="click"
-      [nzContent]="tabListTpl"
-    >
-      Tab List
-    </div>
-    <div class="tabs-button">Add Tab</div>
-  </div>
-</div>
-<ng-content></ng-content>
+</ng-template>
 
 <ng-template #tabListTpl>
   <ul>
