@@ -8,6 +8,7 @@ import {
   Input
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
+import { FF_EQUALS } from 'ng-zorro-antd';
 
 @Directive({
   selector: '[byTabs]'
@@ -26,8 +27,8 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
   ngAfterContentInit() {}
 
   ngAfterViewInit() {
-    const refArray = Array.from(this.tabContainer.nativeElement.childNodes);
-    refArray.shift();
+    let refArray = Array.from(this.tabContainer.nativeElement.childNodes);
+    refArray = refArray.filter((ref: Element) => ref.nodeType !== ref.COMMENT_NODE);
     this.elements = refArray.map((el: Element, index: number) => {
       return {
         element: el,

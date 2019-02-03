@@ -1,5 +1,7 @@
 <div class="tabs-component">
-  <ng-container *ngTemplateOutlet="tabDefaultTpl"></ng-container>
+  <div class="tabs-container" #tabContainerRef [byTabs]="childrenTab">
+    <ng-container *ngTemplateOutlet="tabDefaultTpl"></ng-container>
+  </div>
 
   <div class="tabs-buttons">
     <div
@@ -17,16 +19,14 @@
 <ng-content></ng-content>
 
 <ng-template #tabDefaultTpl>
-  <div class="tabs-container" #tabContainerRef [byTabs]="childrenTab">
-    <div
-      #tabRef
-      (click)="onSelect(tab, tabRef, tabContainerRef)"
-      *ngFor="let tab of childrenTab; let i = index"
-      id="{{ 'tab-' + i }}"
-      [ngClass]="setTabClasses(i, tab)"
-    >
-      {{ tab.title }}
-    </div>
+  <div
+    #tabRef
+    (click)="onSelect(tab, tabRef, tabContainerRef)"
+    *ngFor="let tab of childrenTab; let i = index"
+    id="{{ 'tab-' + i }}"
+    [ngClass]="setTabClasses(i, tab)"
+  >
+    {{ tab.title }}
   </div>
 </ng-template>
 
