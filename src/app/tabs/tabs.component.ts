@@ -5,13 +5,12 @@ import {
   ElementRef,
   ContentChildren,
   AfterContentInit,
-  AfterViewInit,
   Output,
   EventEmitter,
-  AfterContentChecked,
-  AfterViewChecked,
   HostListener,
-  QueryList
+  QueryList,
+  Input,
+  TemplateRef
 } from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 
@@ -23,10 +22,11 @@ import { TabComponent } from '../tab/tab.component';
 export class TabsComponent
   implements
     OnInit,
-    AfterContentInit,
-    AfterViewInit,
-    AfterContentChecked,
-    AfterViewChecked {
+    AfterContentInit {
+  @Input() tabTemplate: TemplateRef<any>;
+  @Input() tabStyle = 'tab';
+  @Input() tabSelectedStyle = 'tab-selected';
+  @Input() firstTabStyle = 'first-tab';
   @Output() selectEvent: EventEmitter<number> = new EventEmitter();
   tabSelected: {elementRef: HTMLElement, tabComponent: TabComponent} = {elementRef: null, tabComponent: null};
 
@@ -56,12 +56,6 @@ export class TabsComponent
   ngAfterContentInit() {
     this.tabSelected.tabComponent = this.childrenTab.find(tab => tab.active);
   }
-
-  ngAfterViewChecked() {}
-
-  ngAfterViewInit() {}
-
-  ngAfterContentChecked() {}
 
   onJumpToTab(tab: TabComponent, i: number) {
     this.tabSelected.tabComponent.active = false;
@@ -103,6 +97,15 @@ export class TabsComponent
         behavior: 'smooth'
       });
     }
+  }
+
+  setTabClasses(index: number, tab: TabComponent) {
+    const classes = {
+      [this.firstTabStyle]: index === this.childrenTab.length - 1,
+      [this.tabStyle]: index < this.childrenTab.length - 1,
+      [this.tabSelectedStyle]: tab.active,
+    };
+    return classes;
   }
 
   // scrollTab(container: Element, tab: HTMLElement): void {

@@ -1,5 +1,4 @@
 <div class="tabs-component">
-
   <ng-container *ngTemplateOutlet="tabDefaultTpl"></ng-container>
 
   <div class="tabs-buttons">
@@ -18,21 +17,13 @@
 <ng-content></ng-content>
 
 <ng-template #tabDefaultTpl>
-  <div
-    class="tabs-container"
-    #tabContainerRef
-    [byTabs]="childrenTab"
-  >
+  <div class="tabs-container" #tabContainerRef [byTabs]="childrenTab">
     <div
       #tabRef
       (click)="onSelect(tab, tabRef, tabContainerRef)"
       *ngFor="let tab of childrenTab; let i = index"
       id="{{ 'tab-' + i }}"
-      [ngClass]="{
-        'first-tab': i === childrenTab.length - 1,
-        tab: i < childrenTab.length - 1,
-        'tab-selected': tab.active
-      }"
+      [ngClass]="setTabClasses(i, tab)"
     >
       {{ tab.title }}
     </div>
@@ -43,7 +34,7 @@
   <ul>
     <ng-container *ngFor="let tab of childrenTab; let i = index">
       <li *ngIf="!tab.visible" (click)="onJumpToTab(tab, i)">
-        {{ tab.title }} {{tab.visible}}
+        {{ tab.title }} {{ tab.visible }}
       </li>
     </ng-container>
   </ul>
