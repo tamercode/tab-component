@@ -54,16 +54,20 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
       // const isSelected = element.className.includes('tab-selected');
       const tabId = element.id;
       const findElement = this.elements.find(el => el.element.id === tabId);
-        const ratio = entry.isIntersecting;
+      const ratio = entry.intersectionRatio;
         // console.log(entry.boundingClientRect);
         // console.log(entry.intersectionRect);
         // console.log(entry.isIntersecting);
         // console.log(entry.rootBounds);
         // console.log(entry.target);
         // console.log(entry.time);
-        if (!ratio) {
+        debugger
+        if (ratio < 1) {
+          debugger
           findElement.tabComponent.visible = false;
-        } else {
+        }
+        if (ratio >= 1) {
+          debugger
           findElement.tabComponent.visible = true;
         }
     });
