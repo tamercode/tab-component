@@ -61,13 +61,10 @@ export class TabsDirective implements AfterContentInit, AfterViewInit {
         // console.log(entry.rootBounds);
         // console.log(entry.target);
         // console.log(entry.time);
-        debugger
         if (ratio < 1) {
-          debugger
           findElement.tabComponent.visible = false;
         }
         if (ratio >= 1) {
-          debugger
           findElement.tabComponent.visible = true;
         }
     });
