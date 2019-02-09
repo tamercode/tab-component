@@ -4,17 +4,17 @@
   </div>
   <div class="tabs-container" #tabContainerRef [byTabs]="childrenTab">
 
-    <div class="tabs-wrapper">
-      <div
-        #tabRef
-        (click)="onSelect(tab, tabRef, tabContainerRef)"
-        *ngFor="let tab of (childrenTab | slice: 1); let i = index"
-        id="{{ 'tab-' + i }}"
-        [ngClass]="setTabClasses(i, tab)"
-      >
-        {{ tab.title }}
-      </div>
+    <div
+      #tabRef
+      (click)="onSelect(tab, tabRef, tabContainerRef)"
+      *ngFor="let tab of (childrenTab | slice: 1); let i = index"
+      id="{{ 'tab-' + i }}"
+      [ngClass]="setTabClasses(i, tab)"
+    >
+      {{ tab.title }}
     </div>
+    <!-- <div class="tabs-wrapper">
+    </div> -->
   </div>
 
   <div class="tabs-buttons">
