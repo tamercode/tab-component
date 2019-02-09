@@ -82,6 +82,7 @@ export class TabsComponent
     const tabLeft = tab.getBoundingClientRect().left;
     const tabRight = tab.getBoundingClientRect().right;
     const scrollLeftContainer = container.scrollLeft;
+    debugger
     if (tabLeft < containerLeft) {
       const offset = containerLeft - tabLeft;
       container.scrollTo({
